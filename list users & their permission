@@ -1,0 +1,24 @@
+#import request module
+import requests
+
+#git hub URL
+url = "https://api.github.com"
+
+username = "git hub user name"
+
+parameters = {
+    "Authorization": "token git_token"
+}
+
+repo_owner = "Liku1376"
+repo_name = "shell_script_projects"
+
+endpoint = rf"/repos/{repo_owner}/{repo_name}/collaborators"
+
+response = requests.get(url=f"{url}/{endpoint}", headers=parameters)
+response.raise_for_status()
+if response.status_code == 200:
+    response = response.json()
+    print(f"User : {response[0]["login"]}\n AccessType : {response[0]["permissions"]}")
+else:
+    print(f"Failed to retrieve data: {response.status_code}")
